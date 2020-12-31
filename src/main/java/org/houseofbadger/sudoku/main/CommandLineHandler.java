@@ -105,7 +105,6 @@ public class CommandLineHandler {
                 .hasArgs()
                 .valueSeparator()
                 .desc(OPTION_GET_VERSION_ARG)
-                .required(true)
                 .longOpt(OPTION_GET_VERSION_LONG)
                 .type(String.class)
                 .build();
@@ -149,7 +148,7 @@ public class CommandLineHandler {
 
     public void printVersion() {
         final PrintWriter   writer = new PrintWriter(System.out);
-        writer.println("Current version is : " + VERSION);
+        writer.println(VERSION);
         writer.close();
     }
 }
