@@ -30,3 +30,7 @@ build
 
 # Ignore idea projects
 .idea
+*.iml
+
+#Ignore
+target

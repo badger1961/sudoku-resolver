@@ -3,8 +3,14 @@
  */
 package org.houseofbadger.sudoku.main;
 
+import java.io.File;
+
 public class Main {
     public static void main(String[] args) {
         Application sudokuApp = new Application();
+        sudokuApp.initialize();
+        sudokuApp.loadInputTable(new File("c:/temp/data"));
+        sudokuApp.findSolution();
     }
+
 }
