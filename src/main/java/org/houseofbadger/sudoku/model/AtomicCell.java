@@ -1,21 +1,21 @@
 package org.houseofbadger.sudoku.model;
 
-import org.houseofbadger.sudoku.main.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class Cell {
-    private static final Logger logger = LoggerFactory.getLogger(Cell.class);
+public class AtomicCell {
+    private static final Logger logger = LoggerFactory.getLogger(AtomicCell.class);
     private int value;
     private List<Integer> possibleValues;
     private int xPos;
     private int yPos;
 
-    public Cell(int xPos, int yPos, int value) {
+    public AtomicCell(int xPos, int yPos, int value) {
         checkValue(value);
         checkPosition(xPos);
         checkPosition(yPos);
@@ -38,13 +38,21 @@ public class Cell {
         this.setValue(0);
     }
 
-    public void resetPossibleValue(int idx) {
-        checkPosition(idx);
-        this.possibleValues.remove(idx);
+    public void resetPossibleValue(int value) {
+        checkPosition(value);
+        this.possibleValues = this.possibleValues.stream().filter(c -> c != value).collect(Collectors.toList());
     }
 
     public List<Integer> getPossibleValue() {
         return this.possibleValues;
+    }
+
+    public int getXPos( ) {
+        return this.xPos;
+    }
+
+    public int getYPos() {
+        return this.yPos;
     }
 
     private void checkValue(int checked) {
