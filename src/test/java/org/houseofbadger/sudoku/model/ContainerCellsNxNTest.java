@@ -11,7 +11,7 @@ public class ContainerCellsNxNTest {
 
     @Test
     public void testGetAtomicCell() {
-        ContainerCells_NxN containerCellsNxN = new ContainerCells_NxN();
+        MatrixContainer containerCellsNxN = new MatrixContainer(0,0);
         AtomicCell actual = containerCellsNxN.getAtomicCell(0,0);
         Assert.assertEquals(actual.getValue(), 0);
         Assert.assertEquals(actual.getXPos(), 0);
@@ -20,14 +20,14 @@ public class ContainerCellsNxNTest {
 
     @Test
     public void testGetValueAtomicCell() {
-        ContainerCells_NxN containerCellsNxN = new ContainerCells_NxN();
+        MatrixContainer containerCellsNxN = new MatrixContainer(0,0);
         AtomicCell actual = containerCellsNxN.getAtomicCell(0,0);
         Assert.assertEquals(actual.getValue(), 0);
     }
 
     @Test
     public void testSetValueAtomicCell() {
-        ContainerCells_NxN containerCellsNxN = new ContainerCells_NxN();
+        MatrixContainer containerCellsNxN = new MatrixContainer(0,0);
         AtomicCell actual = containerCellsNxN.getAtomicCell(0,0);
         containerCellsNxN.setValueAtomicCell(0,0, 5);
         int actualValue = containerCellsNxN.getAtomicCell(0,0).getValue();
@@ -36,7 +36,7 @@ public class ContainerCellsNxNTest {
 
     @Test
     public void testGetPossibleValueAtomicCell() {
-        ContainerCells_NxN containerCellsNxN = new ContainerCells_NxN();
+        MatrixContainer containerCellsNxN = new MatrixContainer(0,0);
         List<Integer> result = containerCellsNxN.getPossibleValueAtomicCell(0,0);
         List<Integer> expected  = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
         Assert.assertEquals(result, expected);
@@ -44,7 +44,7 @@ public class ContainerCellsNxNTest {
 
     @Test
     public void testResetPossibleValueAtomicCell() {
-        ContainerCells_NxN containerCellsNxN = new ContainerCells_NxN();
+        MatrixContainer containerCellsNxN = new MatrixContainer(0,0);
         List<Integer> result = containerCellsNxN.getPossibleValueAtomicCell(0,0);
         List<Integer> expected  = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
         Assert.assertEquals(result, expected);
@@ -56,7 +56,7 @@ public class ContainerCellsNxNTest {
 
     @Test
     public void testGetUsedNumber() {
-        ContainerCells_NxN containerCellsNxN = new ContainerCells_NxN();
+        MatrixContainer containerCellsNxN = new MatrixContainer(0,0);
         containerCellsNxN.setValueAtomicCell(0,0,5);
         containerCellsNxN.setValueAtomicCell(1,1,6);
         containerCellsNxN.setValueAtomicCell(2,2,7);
@@ -67,7 +67,7 @@ public class ContainerCellsNxNTest {
 
     @Test
     public void testGetAvailableNumber() {
-        ContainerCells_NxN containerCellsNxN = new ContainerCells_NxN();
+        MatrixContainer containerCellsNxN = new MatrixContainer(0,0);
         containerCellsNxN.setValueAtomicCell(0,0,5);
         containerCellsNxN.setValueAtomicCell(1,1,6);
         containerCellsNxN.setValueAtomicCell(2,2,7);

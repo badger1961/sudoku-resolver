@@ -5,8 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class AbstractContainerCells {
-    private List<AtomicCell> atomicCellList;
+public class ContainerCellUtils {
+    private final List<AtomicCell> atomicCellList;
+    
+    public ContainerCellUtils(List<AtomicCell> atomicCellList) {
+    	this.atomicCellList = atomicCellList;
+    }
 
     public List<Integer> getUsedNumber() {
         List<AtomicCell> usedCell = this.atomicCellList.stream().filter((c) -> c.getValue() != 0).collect(Collectors.toList());

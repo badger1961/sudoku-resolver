@@ -9,11 +9,11 @@ import java.util.List;
 
 import static org.testng.Assert.*;
 
-public class ContainerCells_1xNTest {
+public class VectorContainerTest {
 
     @Test
     public void testGetAtomicCell() {
-        ContainerCells_1xN containerCells1xN = new ContainerCells_1xN(2);
+        VectorContainer containerCells1xN = new VectorContainer(2);
         AtomicCell actual = containerCells1xN.getAtomicCell(1);
         Assert.assertEquals(actual.getValue(), 0);
         Assert.assertEquals(actual.getXPos(), 1);
@@ -22,15 +22,14 @@ public class ContainerCells_1xNTest {
 
     @Test
     public void testGetValueAtomicCell() {
-        ContainerCells_1xN containerCells1xN = new ContainerCells_1xN(2);
+        VectorContainer containerCells1xN = new VectorContainer(2);
         AtomicCell actual = containerCells1xN.getAtomicCell(2);
         Assert.assertEquals(actual.getValue(), 0);
     }
 
     @Test
     public void testSetValueAtomicCell() {
-        ContainerCells_1xN containerCells1xN = new ContainerCells_1xN(2);
-        AtomicCell actual = containerCells1xN.getAtomicCell(2);
+        VectorContainer containerCells1xN = new VectorContainer(2);
         containerCells1xN.setValueAtomicCell(2, 5);
         int actualValue = containerCells1xN.getAtomicCell(2).getValue();
         Assert.assertEquals(5, actualValue);
@@ -38,7 +37,7 @@ public class ContainerCells_1xNTest {
 
     @Test
     public void testGetPossibleValueAtomicCell() {
-        ContainerCells_1xN containerCells1xN = new ContainerCells_1xN(2);
+        VectorContainer containerCells1xN = new VectorContainer(2);
         List<Integer> result = containerCells1xN.getPossibleValueAtomicCell(2);
         List<Integer> expected  = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
         Assert.assertEquals(result, expected);
@@ -46,7 +45,7 @@ public class ContainerCells_1xNTest {
 
     @Test
     public void testResetPossibleValueAtomicCell() {
-        ContainerCells_1xN containerCells1xN = new ContainerCells_1xN(2);
+        VectorContainer containerCells1xN = new VectorContainer(2);
         List<Integer> result = containerCells1xN.getPossibleValueAtomicCell(2);
         List<Integer> expected  = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
         Assert.assertEquals(result, expected);
@@ -58,7 +57,7 @@ public class ContainerCells_1xNTest {
 
     @Test
     public void testGetUsedNumber() {
-        ContainerCells_1xN containerCells1xN = new ContainerCells_1xN(2);
+        VectorContainer containerCells1xN = new VectorContainer(2);
         containerCells1xN.setValueAtomicCell(0,5);
         containerCells1xN.setValueAtomicCell(1,6);
         containerCells1xN.setValueAtomicCell(2,7);
@@ -69,7 +68,7 @@ public class ContainerCells_1xNTest {
 
     @Test
     public void testGetAvailableNumber() {
-        ContainerCells_1xN containerCells1xN = new ContainerCells_1xN(2);
+        VectorContainer containerCells1xN = new VectorContainer(2);
         containerCells1xN.setValueAtomicCell(0,5);
         containerCells1xN.setValueAtomicCell(1,6);
         containerCells1xN.setValueAtomicCell(2,7);
