@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ContainerCellsNxNTest {
+public class MatrixContainerTest {
 
     @Test
     public void testGetAtomicCell() {

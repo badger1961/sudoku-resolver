@@ -12,7 +12,7 @@ public class MatrixContainer  {
     private final List<AtomicCell> atomicCellsList;
     
     public MatrixContainer(int xPos, int yPos) {
-    	this(xPos, yPos, 3,3);
+    	this(xPos, yPos, ContainerConstants.CONTAINER_X_SIZE,ContainerConstants.CONTAINER_Y_SIZE);
     }
     
     public MatrixContainer(int xPos, int yPos, int xSize, int ySize) {
