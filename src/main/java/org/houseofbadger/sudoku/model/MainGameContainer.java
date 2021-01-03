@@ -7,26 +7,29 @@ public class MainGameContainer {
 	private final List<MatrixContainer> matrixContainerList;
 	private final List<VectorContainer> vectorContainerRowList;
 	private final List<VectorContainer> vectorContainerColList;
-	private final int xSize;
-	private final int ySize;
+	private final int matrixSize;
+	private final int lineSize;
+	
+	public int getMatrixSize() {
+		return this.matrixSize;
+	}
+	
+	public int getLineSize() {
+		return this.lineSize;
+	}
 	
 	public MainGameContainer() {
 		this(ContainerConstants.CONTAINER_X_SIZE, ContainerConstants.CONTAINER_Y_SIZE);
 	}
 	
-	public MainGameContainer(int xSize, int ySize) {
-		this.xSize = xSize;
-		this.ySize = ySize;
-		int maxSize = xSize * ySize;
-		this.matrixContainerList = new ArrayList<MatrixContainer>(maxSize);
-		this.vectorContainerRowList = new ArrayList<VectorContainer>(maxSize);
-		this.vectorContainerColList = new ArrayList<VectorContainer>(maxSize);
+	public MainGameContainer(int matrixSize, int lineSize) {
+		this.matrixContainerList = this.initMatrixontainerList(matrixSize);
+		this.vectorContainerRowList = this.initVectorContainerList(lineSize);
+		this.vectorContainerColList = this.initVectorContainerList(lineSize);
+		this.matrixSize = matrixSize;
+		this.lineSize = lineSize;
 	}
 	
-	public void loadInputData() {
-		
-	}
-
 	public List<MatrixContainer> getMatrixContainerList() {
 		return matrixContainerList;
 	}
@@ -39,13 +42,24 @@ public class MainGameContainer {
 		return vectorContainerColList;
 	}
 
-	public int getxSize() {
-		return xSize;
-	}
-
-	public int getySize() {
-		return ySize;
+	private List<VectorContainer> initVectorContainerList(int vectorSize) {
+		List<VectorContainer> vectorContainerColList = new ArrayList<VectorContainer>(vectorSize);
+		for (int i = 0; i < ContainerConstants.CONTAINER_LINE_SIZE; i++) {
+			VectorContainer vector = new VectorContainer(i);
+			vectorContainerColList.add(vector);
+		}
+		
+		return vectorContainerColList;
 	}
 	
+	private List<MatrixContainer> initMatrixontainerList(int matrixSize) {
+		List<MatrixContainer> matrixContainerList = new ArrayList<MatrixContainer>(matrixSize * matrixSize);
+		for (int i = 0, j = 0; i < ContainerConstants.CONTAINER_LINE_SIZE; i++, j++) {
+			MatrixContainer matrix = new MatrixContainer(i,j);
+			matrixContainerList.add(matrix);
+		}
+		
+		return matrixContainerList;
+	}
 
 }
