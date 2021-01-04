@@ -2,10 +2,16 @@ package org.houseofbadger.sudoku.model;
 
 import java.util.List;
 import java.util.Map;
+
+import org.houseofbadger.sudoku.dataloader.InputDataLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainGameContainer {
+	private static final Logger logger= LoggerFactory.getLogger(MainGameContainer.class);
 	private final Map<MatrixKey, MatrixContainer> matrixContainerMap;
 	private final List<VectorContainer> vectorContainerRowList;
 	private final List<VectorContainer> vectorContainerColList;
@@ -21,15 +27,15 @@ public class MainGameContainer {
 	}
 	
 	public MainGameContainer() {
-		this(ContainerConstants.CONTAINER_X_SIZE, ContainerConstants.CONTAINER_Y_SIZE);
+		this(ContainerConstants.CONTAINER_X_SIZE, ContainerConstants.CONTAINER_LINE_SIZE);
 	}
 	
 	public MainGameContainer(int matrixSize, int lineSize) {
+		this.matrixSize = matrixSize;
+		this.lineSize = lineSize;
 		this.matrixContainerMap = this.initMatrixontainerList(matrixSize);
 		this.vectorContainerRowList = this.initVectorContainerList(lineSize);
 		this.vectorContainerColList = this.initVectorContainerList(lineSize);
-		this.matrixSize = matrixSize;
-		this.lineSize = lineSize;
 	}
 	
 	public Map<MatrixKey, MatrixContainer> getMatrixContainerMap() {
@@ -60,10 +66,10 @@ public class MainGameContainer {
 	
 	private Map<MatrixKey, MatrixContainer> initMatrixontainerList(int matrixSize) {
 		Map<MatrixKey, MatrixContainer> matrixContainerMap = new HashMap<>();
-		for (int i = 0; i < ContainerConstants.CONTAINER_LINE_SIZE; i = i + this.matrixSize) {
-			for (int j = 0; j < ContainerConstants.CONTAINER_Y_SIZE; j = j + this.matrixSize) {
-				MatrixContainer matrix = new MatrixContainer(i,j);
-				matrixContainerMap.put(new MatrixKey(i,j), matrix);
+		for (int columnNumber = 0; columnNumber < this.lineSize; columnNumber += this.matrixSize) {
+			for (int rowNumber = 0; rowNumber < this.lineSize; rowNumber += this.matrixSize) {
+				MatrixContainer matrix = new MatrixContainer(columnNumber,rowNumber);
+				matrixContainerMap.put(new MatrixKey(columnNumber,rowNumber), matrix);
 			}
 		}
 		

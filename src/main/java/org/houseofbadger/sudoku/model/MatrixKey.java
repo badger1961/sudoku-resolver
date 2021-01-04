@@ -4,7 +4,7 @@ public final class MatrixKey {
 	final int leftLine;
 	final int leftColumn;
 	
-	public MatrixKey(int line, int column) {
+	public MatrixKey(int column, int line) {
 		this.leftLine = line;
 		this.leftColumn = column;
 	}
