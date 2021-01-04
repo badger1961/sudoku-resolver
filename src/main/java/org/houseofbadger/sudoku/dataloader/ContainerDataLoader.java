@@ -1,11 +1,13 @@
 package org.houseofbadger.sudoku.dataloader;
 
 import java.util.List;
+import java.util.Map;
 
 import org.houseofbadger.sudoku.model.AtomicCell;
 import org.houseofbadger.sudoku.model.ContainerConstants;
 import org.houseofbadger.sudoku.model.MainGameContainer;
 import org.houseofbadger.sudoku.model.MatrixContainer;
+import org.houseofbadger.sudoku.model.MatrixKey;
 import org.houseofbadger.sudoku.model.VectorContainer;
 
 public class ContainerDataLoader {
@@ -16,10 +18,10 @@ public class ContainerDataLoader {
 		List<List<Integer>> inputData = inputDataLoader.getContent();
 		List<VectorContainer> rowList = mainContainer.getVectorContainerRowList();
 		List<VectorContainer> colList = mainContainer.getVectorContainerColList();
-		List<MatrixContainer> matrixList = mainContainer.getMatrixContainerList();
+		Map<MatrixKey, MatrixContainer> matrixMap = mainContainer.getMatrixContainerMap();
  		this.loadDataToRows(inputData, rowList, mainContainer.getLineSize());
 		this.loadDataToCols(inputData, colList, mainContainer.getLineSize());
-		this.loadDataToMatrix(inputData, matrixList);
+		this.loadDataToMatrix(inputDataLoader, matrixMap, mainContainer);
 	}
 
 	private void loadDataToRows(List<List<Integer>> inputData, List<VectorContainer> rowList, int lineSize) {
@@ -42,8 +44,12 @@ public class ContainerDataLoader {
 		}
 	}
 	
-	private void loadDataToMatrix(List<List<Integer>> inputData, List<MatrixContainer> colList) {
-		
+	private void loadDataToMatrix(InputDataLoader loader, Map<MatrixKey, MatrixContainer> matrixList, MainGameContainer container) {
+		for (int i = 0; i < container.getLineSize(); i = i + 3 ) {
+			List<List<Integer>> buffer =  loader.getDataForMatrix(i);
+			for (int j = 0; j < container.getMatrixSize(); j++) {
+			}
+		}
 	}
 	
 }

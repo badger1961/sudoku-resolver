@@ -71,11 +71,11 @@ public class MatrixContainer  {
 		return containerYSize;
 	}
 
-	public int getxPos() {
+	public int getLeftCornerLine() {
 		return xPos;
 	}
 
-	public int getyPos() {
+	public int getLeftCornerColumn() {
 		return yPos;
 	}
 

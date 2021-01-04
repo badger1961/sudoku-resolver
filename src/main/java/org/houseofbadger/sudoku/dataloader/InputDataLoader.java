@@ -60,4 +60,21 @@ public class InputDataLoader {
 			throw new DataLoaderException(e.getMessage());
 		}
 	}
+	
+	/** return data for several matrix container. The several container one below one.
+	 * 1 with left corner 0,0; next 0,2; next 0,6 
+	 * 
+	 * @param firstNumber
+	 * @return
+	 */
+	public List<List<Integer>> getDataForMatrix(int firstNumber) {
+		List<List<Integer>> result = new ArrayList<>();
+		for (List<Integer >buff : this.content) {
+			result.add(buff.subList(firstNumber, firstNumber + ContainerConstants.CONTAINER_X_SIZE));
+		}
+		
+		return result;
+		
+	}
+	
 }

@@ -1,10 +1,12 @@
 package org.houseofbadger.sudoku.model;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainGameContainer {
-	private final List<MatrixContainer> matrixContainerList;
+	private final Map<MatrixKey, MatrixContainer> matrixContainerMap;
 	private final List<VectorContainer> vectorContainerRowList;
 	private final List<VectorContainer> vectorContainerColList;
 	private final int matrixSize;
@@ -23,15 +25,15 @@ public class MainGameContainer {
 	}
 	
 	public MainGameContainer(int matrixSize, int lineSize) {
-		this.matrixContainerList = this.initMatrixontainerList(matrixSize);
+		this.matrixContainerMap = this.initMatrixontainerList(matrixSize);
 		this.vectorContainerRowList = this.initVectorContainerList(lineSize);
 		this.vectorContainerColList = this.initVectorContainerList(lineSize);
 		this.matrixSize = matrixSize;
 		this.lineSize = lineSize;
 	}
 	
-	public List<MatrixContainer> getMatrixContainerList() {
-		return matrixContainerList;
+	public Map<MatrixKey, MatrixContainer> getMatrixContainerMap() {
+		return matrixContainerMap;
 	}
 
 	public List<VectorContainer> getVectorContainerRowList() {
@@ -40,6 +42,10 @@ public class MainGameContainer {
 
 	public List<VectorContainer> getVectorContainerColList() {
 		return vectorContainerColList;
+	}
+	
+	public MatrixContainer getMatrixContainer(int leftUpperLine, int leftUpperRow) {
+		return this.matrixContainerMap.get(new MatrixKey(leftUpperLine, leftUpperRow));
 	}
 
 	private List<VectorContainer> initVectorContainerList(int vectorSize) {
@@ -52,14 +58,16 @@ public class MainGameContainer {
 		return vectorContainerColList;
 	}
 	
-	private List<MatrixContainer> initMatrixontainerList(int matrixSize) {
-		List<MatrixContainer> matrixContainerList = new ArrayList<MatrixContainer>(matrixSize * matrixSize);
-		for (int i = 0, j = 0; i < ContainerConstants.CONTAINER_LINE_SIZE; i++, j++) {
-			MatrixContainer matrix = new MatrixContainer(i,j);
-			matrixContainerList.add(matrix);
+	private Map<MatrixKey, MatrixContainer> initMatrixontainerList(int matrixSize) {
+		Map<MatrixKey, MatrixContainer> matrixContainerMap = new HashMap<>();
+		for (int i = 0; i < ContainerConstants.CONTAINER_LINE_SIZE; i = i + this.matrixSize) {
+			for (int j = 0; j < ContainerConstants.CONTAINER_Y_SIZE; j = j + this.matrixSize) {
+				MatrixContainer matrix = new MatrixContainer(i,j);
+				matrixContainerMap.put(new MatrixKey(i,j), matrix);
+			}
 		}
 		
-		return matrixContainerList;
+		return matrixContainerMap;
 	}
 
 }

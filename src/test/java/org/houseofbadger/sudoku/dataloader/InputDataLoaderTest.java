@@ -51,6 +51,102 @@ public class InputDataLoaderTest {
 	  }
   }
   
+  @Test
+  public void getDataForMatrixTest() {
+	  ArrayList<Integer> line1 = new ArrayList<>(Arrays.asList(0,0,0));
+	  ArrayList<Integer> line2 = new ArrayList<>(Arrays.asList(6,2,1));
+	  ArrayList<Integer> line3 = new ArrayList<>(Arrays.asList(3,0,9));
+	  ArrayList<Integer> line4 = new ArrayList<>(Arrays.asList(8,0,0));
+	  ArrayList<Integer> line5 = new ArrayList<>(Arrays.asList(0,0,0));
+	  ArrayList<Integer> line6 = new ArrayList<>(Arrays.asList(7,6,0));
+	  ArrayList<Integer> line7 = new ArrayList<>(Arrays.asList(9,7,6));
+	  ArrayList<Integer> line8 = new ArrayList<>(Arrays.asList(2,1,0));
+	  ArrayList<Integer> line9 = new ArrayList<>(Arrays.asList(4,5,8));
+	  List<List<Integer>> expectedData = new ArrayList<>();
+	  expectedData.add(line1);
+	  expectedData.add(line2);
+	  expectedData.add(line3);
+	  expectedData.add(line4);
+	  expectedData.add(line5);
+	  expectedData.add(line6);
+	  expectedData.add(line7);
+	  expectedData.add(line8);
+	  expectedData.add(line9);
+	  String dataSetName = "src/test/resources/positive.txt";
+	  InputDataLoader dataLoader = new InputDataLoader(dataSetName);
+	  dataLoader.loadInputData();
+	  List<List<Integer>> data = dataLoader.getDataForMatrix(0);
+	  int i = 0;
+	  for (List<Integer> list : data ) {
+		  Assert.assertEquals(list, expectedData.get(i));
+		  i++;
+	  }
+  }
+  
+  @Test
+  public void getDataForMatrixTest2() {
+	  ArrayList<Integer> line1 = new ArrayList<>(Arrays.asList(0,0,0));
+	  ArrayList<Integer> line2 = new ArrayList<>(Arrays.asList(0,0,0));
+	  ArrayList<Integer> line3 = new ArrayList<>(Arrays.asList(0,0,0));
+	  ArrayList<Integer> line4 = new ArrayList<>(Arrays.asList(0,3,4));
+	  ArrayList<Integer> line5 = new ArrayList<>(Arrays.asList(0,0,5));
+	  ArrayList<Integer> line6 = new ArrayList<>(Arrays.asList(0,0,2));
+	  ArrayList<Integer> line7 = new ArrayList<>(Arrays.asList(0,2,0));
+	  ArrayList<Integer> line8 = new ArrayList<>(Arrays.asList(0,8,0));
+	  ArrayList<Integer> line9 = new ArrayList<>(Arrays.asList(0,6,1));
+	  List<List<Integer>> expectedData = new ArrayList<>();
+	  expectedData.add(line1);
+	  expectedData.add(line2);
+	  expectedData.add(line3);
+	  expectedData.add(line4);
+	  expectedData.add(line5);
+	  expectedData.add(line6);
+	  expectedData.add(line7);
+	  expectedData.add(line8);
+	  expectedData.add(line9);
+	  String dataSetName = "src/test/resources/positive.txt";
+	  InputDataLoader dataLoader = new InputDataLoader(dataSetName);
+	  dataLoader.loadInputData();
+	  List<List<Integer>> data = dataLoader.getDataForMatrix(3);
+	  int i = 0;
+	  for (List<Integer> list : data ) {
+		  Assert.assertEquals(list, expectedData.get(i));
+		  i++;
+	  }
+  }
+  
+  @Test
+  public void getDataForMatrixTest3() {
+	  ArrayList<Integer> line1 = new ArrayList<>(Arrays.asList(0,0,0));
+	  ArrayList<Integer> line2 = new ArrayList<>(Arrays.asList(0,0,0));
+	  ArrayList<Integer> line3 = new ArrayList<>(Arrays.asList(0,4,0));
+	  ArrayList<Integer> line4 = new ArrayList<>(Arrays.asList(0,5,0));
+	  ArrayList<Integer> line5 = new ArrayList<>(Arrays.asList(0,0,2));
+	  ArrayList<Integer> line6 = new ArrayList<>(Arrays.asList(0,1,0));
+	  ArrayList<Integer> line7 = new ArrayList<>(Arrays.asList(0,0,1));
+	  ArrayList<Integer> line8 = new ArrayList<>(Arrays.asList(7,6,5));
+	  ArrayList<Integer> line9 = new ArrayList<>(Arrays.asList(9,2,3));
+	  List<List<Integer>> expectedData = new ArrayList<>();
+	  expectedData.add(line1);
+	  expectedData.add(line2);
+	  expectedData.add(line3);
+	  expectedData.add(line4);
+	  expectedData.add(line5);
+	  expectedData.add(line6);
+	  expectedData.add(line7);
+	  expectedData.add(line8);
+	  expectedData.add(line9);
+	  String dataSetName = "src/test/resources/positive.txt";
+	  InputDataLoader dataLoader = new InputDataLoader(dataSetName);
+	  dataLoader.loadInputData();
+	  List<List<Integer>> data = dataLoader.getDataForMatrix(6);
+	  int i = 0;
+	  for (List<Integer> list : data ) {
+		  Assert.assertEquals(list, expectedData.get(i));
+		  i++;
+	  }
+  }
+  
   @Test(expectedExceptions = DataLoaderException.class)
   public void loadInputDataTest2() {
 	  String dataSetName = "src/test/resources/positive2.txt";
