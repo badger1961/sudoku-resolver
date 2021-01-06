@@ -26,16 +26,13 @@ public class MainGameContainer {
 		return this.lineSize;
 	}
 	
-	public MainGameContainer() {
-		this(ContainerConstants.CONTAINER_X_SIZE, ContainerConstants.CONTAINER_LINE_SIZE);
-	}
 	
-	public MainGameContainer(int matrixSize, int lineSize) {
+	public MainGameContainer(List<List<AtomicCell>> gameDataSet, int matrixSize, int lineSize) {
 		this.matrixSize = matrixSize;
 		this.lineSize = lineSize;
+		this.vectorContainerRowList = this.initVectorContainerList(gameDataSet, lineSize);
+		this.vectorContainerColList = this.initVectorContainerList(gameDataSet, lineSize);
 		this.matrixContainerMap = this.initMatrixontainerList(matrixSize);
-		this.vectorContainerRowList = this.initVectorContainerList(lineSize);
-		this.vectorContainerColList = this.initVectorContainerList(lineSize);
 	}
 	
 	public Map<MatrixKey, MatrixContainer> getMatrixContainerMap() {
@@ -54,10 +51,10 @@ public class MainGameContainer {
 		return this.matrixContainerMap.get(new MatrixKey(leftUpperLine, leftUpperRow));
 	}
 
-	private List<VectorContainer> initVectorContainerList(int vectorSize) {
+	private List<VectorContainer> initVectorContainerList(List<List<AtomicCell>> dataSet, int vectorSize) {
 		List<VectorContainer> vectorContainerColList = new ArrayList<VectorContainer>(vectorSize);
 		for (int i = 0; i < ContainerConstants.CONTAINER_LINE_SIZE; i++) {
-			VectorContainer vector = new VectorContainer(i);
+			VectorContainer vector = new VectorContainer(i, dataSet);
 			vectorContainerColList.add(vector);
 		}
 		

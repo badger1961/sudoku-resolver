@@ -1,5 +1,6 @@
 package org.houseofbadger.sudoku.model;
 
+import org.houseofbadger.sudoku.dataloader.InputDataLoader;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,31 +14,22 @@ public class VectorContainerTest {
 
     @Test
     public void testGetAtomicCell() {
-        VectorContainer containerCells1xN = new VectorContainer(2);
+    	String dataSetName = "src/test/resources/positive.txt";
+  	    InputDataLoader dataLoader = new InputDataLoader();
+  	    List<List<AtomicCell>> data = dataLoader.loadData(dataSetName, 9);
+        VectorContainer containerCells1xN = new VectorContainer(1, data);
         AtomicCell actual = containerCells1xN.getAtomicCell(1);
-        Assert.assertEquals(actual.getValue(), 0);
+        Assert.assertEquals(actual.getValue(), 2);
         Assert.assertEquals(actual.getXPos(), 1);
-        Assert.assertEquals(actual.getYPos(), 2);
-    }
-
-    @Test
-    public void testGetValueAtomicCell() {
-        VectorContainer containerCells1xN = new VectorContainer(2);
-        AtomicCell actual = containerCells1xN.getAtomicCell(2);
-        Assert.assertEquals(actual.getValue(), 0);
-    }
-
-    @Test
-    public void testSetValueAtomicCell() {
-        VectorContainer containerCells1xN = new VectorContainer(2);
-        containerCells1xN.setValueAtomicCell(2, 5);
-        int actualValue = containerCells1xN.getAtomicCell(2).getValue();
-        Assert.assertEquals(5, actualValue);
+        Assert.assertEquals(actual.getYPos(), 1);
     }
 
     @Test
     public void testGetPossibleValueAtomicCell() {
-        VectorContainer containerCells1xN = new VectorContainer(2);
+    	String dataSetName = "src/test/resources/positive.txt";
+  	    InputDataLoader dataLoader = new InputDataLoader();
+  	    List<List<AtomicCell>> data = dataLoader.loadData(dataSetName, 9);
+        VectorContainer containerCells1xN = new VectorContainer(2, data);
         List<Integer> result = containerCells1xN.getPossibleValueAtomicCell(2);
         List<Integer> expected  = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
         Assert.assertEquals(result, expected);
@@ -45,7 +37,10 @@ public class VectorContainerTest {
 
     @Test
     public void testResetPossibleValueAtomicCell() {
-        VectorContainer containerCells1xN = new VectorContainer(2);
+    	String dataSetName = "src/test/resources/positive.txt";
+  	    InputDataLoader dataLoader = new InputDataLoader();
+  	    List<List<AtomicCell>> data = dataLoader.loadData(dataSetName, 9);
+        VectorContainer containerCells1xN = new VectorContainer(2, data);
         List<Integer> result = containerCells1xN.getPossibleValueAtomicCell(2);
         List<Integer> expected  = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
         Assert.assertEquals(result, expected);
@@ -57,23 +52,23 @@ public class VectorContainerTest {
 
     @Test
     public void testGetUsedNumber() {
-        VectorContainer containerCells1xN = new VectorContainer(2);
-        containerCells1xN.setValueAtomicCell(0,5);
-        containerCells1xN.setValueAtomicCell(1,6);
-        containerCells1xN.setValueAtomicCell(2,7);
+    	String dataSetName = "src/test/resources/positive.txt";
+  	    InputDataLoader dataLoader = new InputDataLoader();
+  	    List<List<AtomicCell>> data = dataLoader.loadData(dataSetName, 9);
+        VectorContainer containerCells1xN = new VectorContainer(2, data);
         List<Integer> actual = containerCells1xN.getUsedNumber();
-        List<Integer> expected = new ArrayList<Integer>(Arrays.asList(5,6,7));
+        List<Integer> expected = new ArrayList<Integer>(Arrays.asList(3,9,4));
         Assert.assertEquals(actual, expected);
     }
 
     @Test
     public void testGetAvailableNumber() {
-        VectorContainer containerCells1xN = new VectorContainer(2);
-        containerCells1xN.setValueAtomicCell(0,5);
-        containerCells1xN.setValueAtomicCell(1,6);
-        containerCells1xN.setValueAtomicCell(2,7);
+    	String dataSetName = "src/test/resources/positive.txt";
+  	    InputDataLoader dataLoader = new InputDataLoader();
+  	    List<List<AtomicCell>> data = dataLoader.loadData(dataSetName, 9);
+        VectorContainer containerCells1xN = new VectorContainer(2, data);
         List<Integer> actual = containerCells1xN.getAvailableNumber();
-        List<Integer> expected = new ArrayList<Integer>(Arrays.asList(1,2,3,4,8,9));
+        List<Integer> expected = new ArrayList<Integer>(Arrays.asList(1,2,5,6,7,8));
         Assert.assertEquals(actual, expected);
     }
 }

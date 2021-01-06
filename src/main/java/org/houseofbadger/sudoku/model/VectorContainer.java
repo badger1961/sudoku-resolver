@@ -9,20 +9,13 @@ public class VectorContainer {
     private final ContainerCellUtils containerCellUtils;
     private final List<AtomicCell> atomicCellsList;
     
-    public VectorContainer(int idx) {
-    	this(idx,9);
-    }
     
-    public VectorContainer(int idx, int vectorSize) {
+    public VectorContainer(int idx, List<List<AtomicCell>> vectorData) {
         this.idx = idx;
-        this.vectorSize = vectorSize;
-        this.atomicCellsList = new ArrayList<>(9);
-        this.containerCellUtils = new ContainerCellUtils(this.atomicCellsList);
-        
-        for (int x = 0; x < ContainerConstants.CONTAINER_LINE_SIZE; x++) {
-                AtomicCell atomicCell = new AtomicCell(x, idx, 0);
-                this.atomicCellsList.add(atomicCell);
-        }
+        this.vectorSize = vectorData.size();
+        List<AtomicCell> buff = vectorData.get(idx);
+        this.containerCellUtils = new ContainerCellUtils(buff);
+        this.atomicCellsList = buff;
     }
 
     public int getIdx() {
@@ -41,11 +34,6 @@ public class VectorContainer {
     public int getValueAtomicCell(int x) {
         AtomicCell cell = this.getAtomicCell(x);
         return cell.getValue();
-    }
-
-    public void setValueAtomicCell(int x, int value) {
-        AtomicCell cell = this.getAtomicCell(x);
-        cell.setValue(value);
     }
 
     public List<Integer> getPossibleValueAtomicCell(int x) {
