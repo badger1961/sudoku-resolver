@@ -66,5 +66,13 @@ public class AtomicCell {
             throw new IllegalArgumentException("Position should be in range 0..8 Actual is " + checked);
         }
     }
+    
+    public String toString() {
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("row : " + this.yPos + " ");
+    	sb.append("col : " + this.xPos + " ");
+    	sb.append("value : " + this.value + "\n");
+    	return sb.toString();
+    }
 
 }
