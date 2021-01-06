@@ -63,12 +63,7 @@ public class MainGameContainer {
 	
 	private Map<MatrixKey, MatrixContainer> initMatrixontainerList(int matrixSize) {
 		Map<MatrixKey, MatrixContainer> matrixContainerMap = new HashMap<>();
-		for (int columnNumber = 0; columnNumber < this.lineSize; columnNumber += this.matrixSize) {
-			for (int rowNumber = 0; rowNumber < this.lineSize; rowNumber += this.matrixSize) {
-				MatrixContainer matrix = new MatrixContainer(columnNumber,rowNumber);
-				matrixContainerMap.put(new MatrixKey(columnNumber,rowNumber), matrix);
-			}
-		}
+		
 		
 		return matrixContainerMap;
 	}
