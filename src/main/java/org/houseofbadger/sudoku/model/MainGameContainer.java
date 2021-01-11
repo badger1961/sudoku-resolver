@@ -3,6 +3,7 @@ package org.houseofbadger.sudoku.model;
 import java.util.List;
 import java.util.Map;
 
+import org.houseofbadger.sudoku.model.VectorContainer.VectorEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +54,7 @@ public class MainGameContainer {
 	private List<VectorContainer> initVectorContainerList(List<List<AtomicCell>> dataSet, int vectorSize) {
 		List<VectorContainer> vectorContainerColList = new ArrayList<VectorContainer>(vectorSize);
 		for (int i = 0; i < ContainerConstants.CONTAINER_LINE_SIZE; i++) {
-			VectorContainer vector = new VectorContainer(i, dataSet);
+			VectorContainer vector = new VectorContainer(i, dataSet, VectorEnum.ROW_MODE);
 			vectorContainerColList.add(vector);
 		}
 		
