@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.houseofbadger.sudoku.main.Application;
 import org.houseofbadger.sudoku.model.AtomicCell;
 import org.houseofbadger.sudoku.model.ContainerConstants;
 import org.slf4j.Logger;

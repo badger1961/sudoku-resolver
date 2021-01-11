@@ -3,7 +3,6 @@ package org.houseofbadger.sudoku.model;
 import java.util.List;
 import java.util.Map;
 
-import org.houseofbadger.sudoku.dataloader.InputDataLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
