@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
+import org.houseofbadger.sudoku.model.AtomicCell;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class InputDataLoaderTest {
@@ -41,41 +42,47 @@ public class InputDataLoaderTest {
 	  expectedData.add(line9);
 	  
 	  String dataSetName = "src/test/resources/positive.txt";
-	  InputDataLoader dataLoader = new InputDataLoader(dataSetName);
-	  dataLoader.loadInputData();
-	  List<List<Integer>> data = dataLoader.getContent();
+	  InputDataLoader dataLoader = new InputDataLoader();
+	  List<List<AtomicCell>> data = dataLoader.loadData(dataSetName, 9);
 	  int i = 0;
-	  for (List<Integer> list : data ) {
-		  Assert.assertEquals(list, expectedData.get(i));
+	  for (List<AtomicCell> cellList : data ) {
+		  List<Integer> expectedLine = expectedData.get(i);
+		  int j = 0;
+		  for (AtomicCell cell : cellList) {
+			  Assert.assertEquals(cell.getValue(), expectedLine.get(j).intValue());
+			  j++;
+		  }
+		  
 		  i++;
 	  }
   }
   
+  
   @Test(expectedExceptions = DataLoaderException.class)
   public void loadInputDataTest2() {
 	  String dataSetName = "src/test/resources/positive2.txt";
-	  InputDataLoader dataLoader = new InputDataLoader(dataSetName);
-	  dataLoader.loadInputData();
+	  InputDataLoader dataLoader = new InputDataLoader();
+	  dataLoader.loadData(dataSetName, 9);
   }
   
   @Test(expectedExceptions = DataLoaderException.class)
   public void loadInputDataTest3() {
 	  String dataSetName = "src/test/resources/negative1.txt";
-	  InputDataLoader dataLoader = new InputDataLoader(dataSetName);
-	  dataLoader.loadInputData();
+	  InputDataLoader dataLoader = new InputDataLoader();
+	  dataLoader.loadData(dataSetName, 9);
   }
   
   @Test(expectedExceptions = DataLoaderException.class)
   public void loadInputDataTest4() {
 	  String dataSetName = "src/test/resources/negative2.txt";
-	  InputDataLoader dataLoader = new InputDataLoader(dataSetName);
-	  dataLoader.loadInputData();
+	  InputDataLoader dataLoader = new InputDataLoader();
+	  dataLoader.loadData(dataSetName, 9);
   }
   
   @Test(expectedExceptions = DataLoaderException.class)
   public void loadInputDataTest5() {
 	  String dataSetName = "src/test/resources/negative3.txt";
-	  InputDataLoader dataLoader = new InputDataLoader(dataSetName);
-	  dataLoader.loadInputData();
+	  InputDataLoader dataLoader = new InputDataLoader();
+	  dataLoader.loadData(dataSetName, 9);
   }
 }

@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 
 import java.util.Optional;
 
-import static org.testng.Assert.*;
 
 public class CommandLineHandlerTest {
 

@@ -1,34 +1,42 @@
 package org.houseofbadger.sudoku.model;
 
 import java.util.List;
+import java.util.Map;
+
+import org.houseofbadger.sudoku.model.VectorContainer.VectorEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainGameContainer {
-	private final List<MatrixContainer> matrixContainerList;
+	private static final Logger logger= LoggerFactory.getLogger(MainGameContainer.class);
+	private final Map<MatrixKey, MatrixContainer> matrixContainerMap;
 	private final List<VectorContainer> vectorContainerRowList;
 	private final List<VectorContainer> vectorContainerColList;
-	private final int xSize;
-	private final int ySize;
+	private final int matrixSize;
+	private final int lineSize;
 	
-	public MainGameContainer() {
-		this(ContainerConstants.CONTAINER_X_SIZE, ContainerConstants.CONTAINER_Y_SIZE);
+	public int getMatrixSize() {
+		return this.matrixSize;
 	}
 	
-	public MainGameContainer(int xSize, int ySize) {
-		this.xSize = xSize;
-		this.ySize = ySize;
-		int maxSize = xSize * ySize;
-		this.matrixContainerList = new ArrayList<MatrixContainer>(maxSize);
-		this.vectorContainerRowList = new ArrayList<VectorContainer>(maxSize);
-		this.vectorContainerColList = new ArrayList<VectorContainer>(maxSize);
+	public int getLineSize() {
+		return this.lineSize;
 	}
 	
-	public void loadInputData() {
-		
+	
+	public MainGameContainer(List<List<AtomicCell>> gameDataSet, int matrixSize, int lineSize) {
+		this.matrixSize = matrixSize;
+		this.lineSize = lineSize;
+		this.vectorContainerRowList = this.initVectorContainerList(gameDataSet, lineSize, VectorEnum.ROW_MODE);
+		this.vectorContainerColList = this.initVectorContainerList(gameDataSet, lineSize, VectorEnum.COLUMN_MODE);
+		this.matrixContainerMap = this.initMatrixontainerList(matrixSize);
 	}
-
-	public List<MatrixContainer> getMatrixContainerList() {
-		return matrixContainerList;
+	
+	public Map<MatrixKey, MatrixContainer> getMatrixContainerMap() {
+		return matrixContainerMap;
 	}
 
 	public List<VectorContainer> getVectorContainerRowList() {
@@ -38,14 +46,26 @@ public class MainGameContainer {
 	public List<VectorContainer> getVectorContainerColList() {
 		return vectorContainerColList;
 	}
-
-	public int getxSize() {
-		return xSize;
+	
+	public MatrixContainer getMatrixContainer(int leftUpperLine, int leftUpperRow) {
+		return this.matrixContainerMap.get(new MatrixKey(leftUpperLine, leftUpperRow));
 	}
 
-	public int getySize() {
-		return ySize;
+	private List<VectorContainer> initVectorContainerList(List<List<AtomicCell>> dataSet, int vectorSize, VectorEnum mode) {
+		List<VectorContainer> vectorContainerColList = new ArrayList<VectorContainer>(vectorSize);
+		for (int i = 0; i < ContainerConstants.CONTAINER_LINE_SIZE; i++) {
+			VectorContainer vector = new VectorContainer(i, dataSet, mode);
+			vectorContainerColList.add(vector);
+		}
+		
+		return vectorContainerColList;
 	}
 	
+	private Map<MatrixKey, MatrixContainer> initMatrixontainerList(int matrixSize) {
+		Map<MatrixKey, MatrixContainer> matrixContainerMap = new HashMap<>();
+		
+		
+		return matrixContainerMap;
+	}
 
 }

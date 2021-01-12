@@ -9,29 +9,38 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.houseofbadger.sudoku.main.Application;
+import org.houseofbadger.sudoku.model.AtomicCell;
 import org.houseofbadger.sudoku.model.ContainerConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class InputDataLoader {
-	private final Path inputDataSet;
-	private final List<List<Integer>> content;
-	private static final Logger logger= LoggerFactory.getLogger(InputDataLoader.class);
+	private static final Logger logger = LoggerFactory.getLogger(InputDataLoader.class);
 	
-	public List<List<Integer>> getContent() {
-		return content;
-	}
-
-	public InputDataLoader(String inputDataSetName) {
-		this.inputDataSet = Paths.get(inputDataSetName);
-		this.content = new ArrayList<>();
+	
+	public List<List<AtomicCell>> loadData(final String inputDataSetName, final int matrixSize) {
+		List<List<AtomicCell>> matrixContent = new ArrayList<>();
+		List<List<Integer>> inputData = this.loadInputDataSet(inputDataSetName);
+		for (int row = 0; row <  matrixSize; row++) {
+			List<Integer> rowInputData = inputData.get(row);
+			List<AtomicCell> rowData = new ArrayList<>();
+			for (int column = 0; column < matrixSize; column++ ) {
+				AtomicCell cell = new AtomicCell(column, row, rowInputData.get(column));
+				rowData.add(cell);
+			}
+			
+			matrixContent.add(rowData);
+		}
+		
+		return matrixContent;
 	}
 	
-	public void loadInputData()  {
+	private List<List<Integer>> loadInputDataSet(final String inputDataSetName)  {
+		Path inputDataSet = Paths.get(inputDataSetName);
+		List<List<Integer>> content = new ArrayList<>();
 		try {
 			List<ArrayList<String>> buffer;
-			logger.debug("Read Data from " + this.inputDataSet);
+			logger.debug("Read Data from " + inputDataSet);
 			List<String> dataSetContent = Files.readAllLines(inputDataSet);
 			if (dataSetContent.size() != ContainerConstants.CONTAINER_LINE_MAX) {
 				throw new DataLoaderException("Input data should contain 9 lines");
@@ -50,14 +59,17 @@ public class InputDataLoader {
 				throw new DataLoaderException("Each line should contain 9 numbers");
 			}
 			
+			return content;
+			
 		} catch (IOException e) {
-			logger.error("Could not load data from file " + this.inputDataSet);
+			logger.error("Could not load data from file " + inputDataSetName);
 			logger.error(e.getMessage());
 			throw new DataLoaderException(e);
 		} catch (NumberFormatException e) {
-			logger.error("Data set should contain only numbers : " + this.inputDataSet);
+			logger.error("Data set should contain only numbers : " + inputDataSetName);
 			logger.error(e.getMessage());
 			throw new DataLoaderException(e.getMessage());
 		}
 	}
+	
 }

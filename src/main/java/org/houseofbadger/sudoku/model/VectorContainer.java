@@ -9,20 +9,39 @@ public class VectorContainer {
     private final ContainerCellUtils containerCellUtils;
     private final List<AtomicCell> atomicCellsList;
     
-    public VectorContainer(int idx) {
-    	this(idx,9);
+    
+    enum VectorEnum {
+    	ROW_MODE,
+    	COLUMN_MODE
     }
     
-    public VectorContainer(int idx, int vectorSize) {
+    public VectorContainer(int idx, List<List<AtomicCell>> vectorData, VectorEnum mode) {
         this.idx = idx;
-        this.vectorSize = vectorSize;
-        this.atomicCellsList = new ArrayList<>(9);
-        this.containerCellUtils = new ContainerCellUtils(this.atomicCellsList);
-        
-        for (int x = 0; x < ContainerConstants.CONTAINER_LINE_SIZE; x++) {
-                AtomicCell atomicCell = new AtomicCell(x, idx, 0);
-                this.atomicCellsList.add(atomicCell);
+        this.vectorSize = vectorData.size();
+        if (mode == VectorEnum.ROW_MODE) {
+        	this.atomicCellsList = this.rowVectorContasinerFactory(vectorData);
+        } else if (mode == VectorEnum.COLUMN_MODE) {
+        	this.atomicCellsList = this.columnVectorContainerFactory(vectorData);
+        } else {
+        	throw new ContainerException("Invalid mode of vector creation");
         }
+        
+        this.containerCellUtils = new ContainerCellUtils(this.atomicCellsList );
+    }
+    
+    private List<AtomicCell> rowVectorContasinerFactory(List<List<AtomicCell>> vectorData) {
+    	List<AtomicCell> buffer = vectorData.get(this.idx);
+    	return buffer;
+    }
+    
+    private List<AtomicCell> columnVectorContainerFactory(List<List<AtomicCell>> vectorData) {
+    	List<AtomicCell> buffer = new ArrayList<>();
+    	for (int row = 0; row < this.vectorSize; row++) {
+    		AtomicCell cell = vectorData.get(row).get(this.idx);
+    		buffer.add(cell);
+    	}
+    	
+    	return buffer;
     }
 
     public int getIdx() {
@@ -34,18 +53,13 @@ public class VectorContainer {
 	}
 
 	public AtomicCell getAtomicCell(int x) {
-        AtomicCell cell = this.atomicCellsList.stream().filter((c) -> c.getXPos() == x ).findFirst().get();
+        AtomicCell cell = this.atomicCellsList.get(x);
         return  cell;
     }
 
     public int getValueAtomicCell(int x) {
         AtomicCell cell = this.getAtomicCell(x);
         return cell.getValue();
-    }
-
-    public void setValueAtomicCell(int x, int value) {
-        AtomicCell cell = this.getAtomicCell(x);
-        cell.setValue(value);
     }
 
     public List<Integer> getPossibleValueAtomicCell(int x) {
@@ -65,4 +79,5 @@ public class VectorContainer {
     public List<Integer> getAvailableNumber() {
     	return this.containerCellUtils.getAvailableNumber();
     }
+    
 }
