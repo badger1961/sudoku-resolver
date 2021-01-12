@@ -17,10 +17,10 @@ public class Application {
         logger.debug("End sudoku resolver application initialization");
     }
 
-    public void run(File dataFile) {
+    public void run(String dataSetName) {
         logger.debug("Start Loading input data for sudoku resolver application");
         InputDataLoader inputDataLoader = new InputDataLoader();
-        List<List<AtomicCell>> dataSet = inputDataLoader.loadData("src/test/resources/positive.txt", 9);
+        List<List<AtomicCell>> dataSet = inputDataLoader.loadData(dataSetName, 9);
         MainGameContainer mainGameContainer = new MainGameContainer(dataSet, 3, 9);
         logger.debug("End Loading input data for sudoku resolver application");
         logger.debug("Start Resolving");
