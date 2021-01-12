@@ -32,7 +32,7 @@ public class MainGameContainer {
 		this.lineSize = lineSize;
 		this.vectorContainerRowList = this.initVectorContainerList(gameDataSet, lineSize, VectorEnum.ROW_MODE);
 		this.vectorContainerColList = this.initVectorContainerList(gameDataSet, lineSize, VectorEnum.COLUMN_MODE);
-		this.matrixContainerMap = this.initMatrixontainerList(matrixSize);
+		this.matrixContainerMap = this.initMatrixontainerList(gameDataSet, lineSize);
 	}
 	
 	public Map<MatrixKey, MatrixContainer> getMatrixContainerMap() {
@@ -61,9 +61,14 @@ public class MainGameContainer {
 		return vectorContainerColList;
 	}
 	
-	private Map<MatrixKey, MatrixContainer> initMatrixontainerList(int matrixSize) {
+	private Map<MatrixKey, MatrixContainer> initMatrixontainerList(List<List<AtomicCell>> dataSet, int matrixSize) {
 		Map<MatrixKey, MatrixContainer> matrixContainerMap = new HashMap<>();
-		
+		for (int row = 0; row < this.lineSize; row += this.matrixSize) {
+			for (int column = 0; column < this.lineSize; column += this.matrixSize) {
+				MatrixContainer matrixContainer = new  MatrixContainer(dataSet, row, column, this.matrixSize, this.matrixSize);
+				matrixContainerMap.put(new MatrixKey(row,column), matrixContainer);
+			}
+		}
 		
 		return matrixContainerMap;
 	}

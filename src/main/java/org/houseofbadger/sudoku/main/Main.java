@@ -4,15 +4,27 @@
 package org.houseofbadger.sudoku.main;
 
 import java.io.File;
+import java.util.Optional;
+import org.apache.commons.cli.*;
+import org.houseofbadger.sudoku.dataloader.InputDataLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
+	private static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {
         CommandLineHandler cmdh = new CommandLineHandler();
-        cmdh.parse(args);
+        Optional<CommandLine> config = cmdh.parse(args);
+        if (config.isEmpty()) {
+        	logger.error("Hmm ... something wrong in command line");
+        	return;
+        }
+        
         Application sudokuApp = new Application();
         sudokuApp.initialize();
-        sudokuApp.loadInputTable(new File("c:/temp/data"));
-        sudokuApp.findSolution();
+        CommandLine cmdLine = config.get();
+        String inputDataSetName = cmdLine.getOptionValue(CommandLineHandler.OPTION_INPUT_FILE_NAME_SHORT);
+        sudokuApp.run(new File(inputDataSetName));
     }
 
 }
