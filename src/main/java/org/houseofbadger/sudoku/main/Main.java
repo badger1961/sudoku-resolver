@@ -6,7 +6,6 @@ package org.houseofbadger.sudoku.main;
 import java.io.File;
 import java.util.Optional;
 import org.apache.commons.cli.*;
-import org.houseofbadger.sudoku.dataloader.InputDataLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
