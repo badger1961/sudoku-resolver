@@ -6,6 +6,7 @@ import java.util.List;
 import org.houseofbadger.sudoku.dataloader.InputDataLoader;
 import org.houseofbadger.sudoku.model.AtomicCell;
 import org.houseofbadger.sudoku.model.MainGameContainer;
+import org.houseofbadger.sudoku.solutions.SolutionsSeeker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +25,8 @@ public class Application {
         MainGameContainer mainGameContainer = new MainGameContainer(dataSet, 3, 9);
         logger.debug("End Loading input data for sudoku resolver application");
         logger.debug("Start Resolving");
+        SolutionsSeeker solutionsSeeker = new SolutionsSeeker();
+        solutionsSeeker.trivialSolutionSeeker(mainGameContainer);
         logger.debug("End Resolving");
     }
 }

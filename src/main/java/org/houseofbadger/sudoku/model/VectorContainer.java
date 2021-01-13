@@ -8,8 +8,7 @@ public class VectorContainer {
     private final int vectorSize;
     private final ContainerCellUtils containerCellUtils;
     private final List<AtomicCell> atomicCellsList;
-    
-    
+
     enum VectorEnum {
     	ROW_MODE,
     	COLUMN_MODE
@@ -52,6 +51,10 @@ public class VectorContainer {
 		return vectorSize;
 	}
 
+	public List<AtomicCell> getAtomicCellsList() {
+        return this.atomicCellsList;
+    }
+
 	public AtomicCell getAtomicCell(int x) {
         AtomicCell cell = this.atomicCellsList.get(x);
         return  cell;
@@ -79,5 +82,14 @@ public class VectorContainer {
     public List<Integer> getAvailableNumber() {
     	return this.containerCellUtils.getAvailableNumber();
     }
-    
+
+    @Override
+    public String toString() {
+        return "VectorContainer{" +
+                "idx=" + idx +
+                ", vectorSize=" + vectorSize +
+                ", containerCellUtils=" + containerCellUtils +
+                ", atomicCellsList=" + atomicCellsList +
+                '}';
+    }
 }
