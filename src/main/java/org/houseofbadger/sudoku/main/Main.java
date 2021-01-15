@@ -23,7 +23,8 @@ public class Main {
         sudokuApp.initialize();
         CommandLine cmdLine = config.get();
         String inputDataSetName = cmdLine.getOptionValue(CommandLineHandler.OPTION_INPUT_FILE_NAME_SHORT);
-        sudokuApp.run(inputDataSetName);
+        String outputDataSetName = cmdLine.getOptionValue(CommandLineHandler.OPTION_OUTPUT_FILE_NAME_SHORT);
+        sudokuApp.run(inputDataSetName, outputDataSetName);
     }
 
 }

@@ -30,7 +30,10 @@ public class OutputDataWriter {
                 Files.write(Paths.get(outputFileName), outputContent);
             } catch (IOException e) {
                 logger.error(e.getMessage());
+                throw new DataLoaderException(e);
             }
+
+            sb.delete(0, sb.length());
         }
     }
 }

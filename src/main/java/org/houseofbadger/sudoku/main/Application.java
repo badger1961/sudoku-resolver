@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.houseofbadger.sudoku.dataloader.InputDataLoader;
+import org.houseofbadger.sudoku.dataloader.OutputDataWriter;
 import org.houseofbadger.sudoku.model.AtomicCell;
 import org.houseofbadger.sudoku.model.MainGameContainer;
 import org.houseofbadger.sudoku.solutions.SolutionsSeeker;
@@ -18,7 +19,7 @@ public class Application {
         logger.debug("End sudoku resolver application initialization");
     }
 
-    public void run(String dataSetName) {
+    public void run(String dataSetName, String outputDataSetName) {
         logger.debug("Start Loading input data for sudoku resolver application");
         InputDataLoader inputDataLoader = new InputDataLoader();
         List<List<AtomicCell>> dataSet = inputDataLoader.loadData(dataSetName, 9);
@@ -28,5 +29,9 @@ public class Application {
         SolutionsSeeker solutionsSeeker = new SolutionsSeeker();
         solutionsSeeker.trivialSolutionSeeker(mainGameContainer);
         logger.debug("End Resolving");
+        logger.debug("saving result");
+        OutputDataWriter outputDataWriter = new OutputDataWriter();
+        outputDataWriter.saveMainGameContainer(mainGameContainer, outputDataSetName);
+        logger.debug("end saving");
     }
 }

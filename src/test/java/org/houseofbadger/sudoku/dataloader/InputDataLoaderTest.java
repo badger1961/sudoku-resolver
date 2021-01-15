@@ -60,7 +60,7 @@ public class InputDataLoaderTest {
   
   @Test(expectedExceptions = DataLoaderException.class)
   public void loadInputDataTest2() {
-	  String dataSetName = "src/test/resources/positive2.txt";
+	  String dataSetName = "src/test/resources/data-set-does-not-exist.txt";
 	  InputDataLoader dataLoader = new InputDataLoader();
 	  dataLoader.loadData(dataSetName, 9);
   }
