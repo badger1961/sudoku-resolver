@@ -14,6 +14,7 @@ public class AtomicCell {
     private List<Integer> possibleValues;
     private int xPos;
     private int yPos;
+    private boolean isFinal;
 
     public AtomicCell(int xPos, int yPos, int value) {
         checkValue(value);
@@ -22,7 +23,13 @@ public class AtomicCell {
         this.value = value;
         this.xPos = xPos;
         this.yPos = yPos;
-        this.possibleValues = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
+        if (value != 0) {
+            this.isFinal = true;
+            this.possibleValues = new ArrayList<>();
+        } else {
+            this.possibleValues = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
+            this.isFinal = false;
+        }
     }
 
     public int getValue() {
@@ -66,13 +73,15 @@ public class AtomicCell {
             throw new IllegalArgumentException("Position should be in range 0..8 Actual is " + checked);
         }
     }
-    
-    public String toString() {
-    	StringBuffer sb = new StringBuffer();
-    	sb.append("row : " + this.yPos + " ");
-    	sb.append("col : " + this.xPos + " ");
-    	sb.append("value : " + this.value + "\n");
-    	return sb.toString();
-    }
 
+    @Override
+    public String toString() {
+        return "AtomicCell{" +
+                "value=" + value +
+                ", possibleValues=" + possibleValues +
+                ", xPos=" + xPos +
+                ", yPos=" + yPos +
+                ", isFinal=" + isFinal +
+                '}';
+    }
 }

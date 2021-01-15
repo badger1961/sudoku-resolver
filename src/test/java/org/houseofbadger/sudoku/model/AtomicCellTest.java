@@ -66,7 +66,7 @@ public class AtomicCellTest {
 
     @Test
     public void testResetPossibleValue() {
-        AtomicCell c = new AtomicCell(0,0, 1);
+        AtomicCell c = new AtomicCell(0,0, 0);
         c.resetPossibleValue(Integer.valueOf(1));
         List<Integer> result = c.getPossibleValue();
         List<Integer> expected  = new ArrayList<Integer>(Arrays.asList(2,3,4,5,6,7,8,9));
@@ -82,7 +82,7 @@ public class AtomicCellTest {
     public void testGetPossibleValue() {
         AtomicCell c = new AtomicCell(0,0, 1);
         List<Integer> result = c.getPossibleValue();
-        List<Integer>  expected =Arrays.asList(1,2,3,4,5,6,7,8,9);
+        List<Integer>  expected =new ArrayList<>();
         Assert.assertEquals(expected, result);
     }
 }

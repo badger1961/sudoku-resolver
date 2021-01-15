@@ -32,6 +32,7 @@ public class CommandLineHandler {
     final public static String        OPTION_HELP_SHORT = "h";
     final public static String        OPTION_HELP_LONG  = "help";
     final public static String        OPTION_HELP_DESC  = "Help printing";
+    
 
     public boolean checkForHelp(String[] args, Options mainOptions) {
         final String        OPTION_HELP_SHORT = "h";
