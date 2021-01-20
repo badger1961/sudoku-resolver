@@ -30,6 +30,10 @@ public class MatrixContainer {
 
 	}
 
+	public List<AtomicCell> getAtomicCellsList() {
+		return this.atomicCellsList;
+	}
+
 	public AtomicCell getAtomicCell(int x, int y) {
 		AtomicCell cell = this.atomicCellsList.stream().filter((c) -> c.getXPos() == x && c.getYPos() == y).findFirst()
 				.get();

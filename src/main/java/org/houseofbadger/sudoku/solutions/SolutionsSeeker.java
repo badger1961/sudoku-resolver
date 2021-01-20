@@ -24,17 +24,25 @@ public class SolutionsSeeker {
 
 	private void checkLine(final List<VectorContainer> vectorList, int lineSize) {
 		for(VectorContainer vector : vectorList) {
-			List<AtomicCell> emptyCell = vector.getAtomicCellsList().stream().filter( c -> c.getValue() == 0).collect(Collectors.toList());
-			if (emptyCell.size() == 1) {
-				List<Integer> possibleValueList = vector.getAvailableNumber();
-				emptyCell.get(0).setValue(possibleValueList.get(0));
-				logger.debug(vector.toString());
-			}
+			List<Integer> possibleValueList = vector.getAvailableNumber();
+			this.makeTrivialSolution(vector.getAtomicCellsList(), possibleValueList);
 		}
 	}
 
 	private void checkMatrix(Map<MatrixKey, MatrixContainer> matrixMap, int matrixSize) {
+		for (MatrixKey key : matrixMap.keySet()) {
+			MatrixContainer matrix = matrixMap.get(key);
+			List<Integer> possibleValueList = matrix.getAvailableNumber();
+			this.makeTrivialSolution(matrix.getAtomicCellsList(), possibleValueList);
+		}
+	}
 
+	private void makeTrivialSolution(List<AtomicCell> atomicCellList, List<Integer> possibleValueList) {
+		List<AtomicCell> emptyCellList = atomicCellList.stream().filter( c -> c.getValue() == 0).collect(Collectors.toList());
+		AtomicCell emptyCell = emptyCellList.get(0);
+		if (emptyCellList.size() == 1) {
+			emptyCell.setValue(possibleValueList.get(0));
+		}
 	}
 
 }
