@@ -34,3 +34,6 @@ build
 
 #Ignore
 target
+test-output
+.project
+.settings
