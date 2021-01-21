@@ -27,3 +27,13 @@ hs_err_pid*
 
 # Ignore Gradle build output directory
 build
+
+# Ignore idea projects
+.idea
+*.iml
+
+#Ignore
+target
+test-output
+.project
+.settings
