@@ -24,4 +24,16 @@ public class ContainerCellUtils {
         List<Integer> allNumber = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
         return allNumber.stream().filter(number -> !usedNumber.contains(number)).collect(Collectors.toList());
     }
+
+    public void cleanPossibleValue() {
+        List<Integer> usedNumber = this.getUsedNumber();
+        for (AtomicCell atomicCell : this.atomicCellList) {
+            if (atomicCell.getPossibleValue().size() == 0) {
+                continue;
+            }
+
+            List<Integer> possibleNumber = atomicCell.getPossibleValue();
+            possibleNumber.removeAll(usedNumber);
+        }
+    }
 }

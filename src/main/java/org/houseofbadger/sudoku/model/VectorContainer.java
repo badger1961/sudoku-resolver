@@ -44,15 +44,7 @@ public class VectorContainer {
     }
 
     public void cleanPossibleValue() {
-        List<Integer> usedNumber = this.getUsedNumber();
-        for (AtomicCell atomicCell : this.atomicCellsList) {
-            if (atomicCell.getPossibleValue().size() == 0) {
-                continue;
-            }
-
-            List<Integer> possibleNumber = atomicCell.getPossibleValue();
-            possibleNumber.removeAll(usedNumber);
-        }
+        this.containerCellUtils.cleanPossibleValue();
     }
 
     public int getIdx() {

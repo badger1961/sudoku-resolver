@@ -60,6 +60,10 @@ public class MatrixContainer {
 		cell.resetPossibleValue(value);
 	}
 
+	public void cleanPossibleValue() {
+		this.containerCellUtils.cleanPossibleValue();
+	}
+
 	public List<Integer> getUsedNumber() {
 		return this.containerCellUtils.getUsedNumber();
 	}
