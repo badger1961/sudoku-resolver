@@ -43,6 +43,10 @@ public class VectorContainer {
     	return buffer;
     }
 
+    public void cleanPossibleValue() {
+        this.containerCellUtils.cleanPossibleValue();
+    }
+
     public int getIdx() {
 		return idx;
 	}

@@ -39,4 +39,17 @@ public class VectorContainerTest {
         }
         Assert.assertEquals(actual, expected);
     }
+
+    @Test
+    public void testCleanPossibleValue() {
+        String dataSetName = "src/test/resources/positive.txt";
+        InputDataLoader dataLoader = new InputDataLoader();
+        List<List<AtomicCell>> data = dataLoader.loadData(dataSetName, 9);
+        VectorContainer vector = new VectorContainer(1, data, VectorEnum.ROW_MODE);
+        List<Integer> expected =new ArrayList<>(Arrays.asList(3,4,5,7,8,9));
+        vector.cleanPossibleValue();
+        AtomicCell cell = vector.getAtomicCell(3);
+        List<Integer> actual = cell.getPossibleValue();
+        Assert.assertEquals(actual,expected);
+    }
 }
