@@ -30,6 +30,11 @@ public class MatrixContainer {
 
 	}
 
+	public void checkMatrixForTrivialSolution() {
+		List<Integer> possibleValueList = this.getAvailableNumber();
+		this.containerCellUtils.makeTrivialSolution(possibleValueList);
+	}
+
 	public List<AtomicCell> getAtomicCellsList() {
 		return this.atomicCellsList;
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.houseofbadger.sudoku.dataloader.OutputDataWriter;
 import org.houseofbadger.sudoku.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,33 +17,44 @@ public class SolutionsSeeker {
 		List<VectorContainer> vectorColumnList = mainGameContainer.getVectorContainerColList();
 		List<VectorContainer> vectorRowList = mainGameContainer.getVectorContainerRowList();
 		Map<MatrixKey, MatrixContainer> matrixMap = mainGameContainer.getMatrixContainerMap();
-		this.checkLine(vectorColumnList, mainGameContainer.getLineSize());
-		this.checkLine(vectorRowList, mainGameContainer.getLineSize());
-		this.checkMatrix(matrixMap, mainGameContainer.getMatrixSize());
+		this.checkVectorForTrivialSolution(vectorColumnList);
+		this.checkVectorForTrivialSolution(vectorRowList);
+		this.checkMatrixForTrivialSolution(matrixMap);
 		logger.debug("end finding trivial solutions");
 	}
 
-	private void checkLine(final List<VectorContainer> vectorList, int lineSize) {
+	public void trivialPossibleValueSeeker(final MainGameContainer mainGameContainer) {
+
+	}
+
+	public void seekGameSolution(final MainGameContainer mainGameContainer) {
+		logger.info("Find solution started");
+		int iteration = 1;
+		while (!mainGameContainer.mainGameContainerCompleted()) {
+			logger.info("Iteration : " + iteration );
+			this.trivialSolutionSeeker(mainGameContainer);
+			mainGameContainer.cleanPossibleValue();
+			OutputDataWriter outputDataWriter = new OutputDataWriter();
+			outputDataWriter.saveMainGameContainer(mainGameContainer, "step-" + iteration + ".txt");
+			iteration++;
+		}
+		logger.info("Find solution ended");
+	}
+
+	private void trivialPossibleValueInVectorSeeker(List<VectorContainer> vectorContainerList) {
+
+	}
+	private void checkVectorForTrivialSolution(final List<VectorContainer> vectorList) {
 		for(VectorContainer vector : vectorList) {
-			List<Integer> possibleValueList = vector.getAvailableNumber();
-			this.makeTrivialSolution(vector.getAtomicCellsList(), possibleValueList);
+			vector.checkVectorForTrivialSolution();
 		}
 	}
 
-	private void checkMatrix(Map<MatrixKey, MatrixContainer> matrixMap, int matrixSize) {
+	private void checkMatrixForTrivialSolution(Map<MatrixKey, MatrixContainer> matrixMap) {
 		for (MatrixKey key : matrixMap.keySet()) {
 			MatrixContainer matrix = matrixMap.get(key);
 			List<Integer> possibleValueList = matrix.getAvailableNumber();
-			this.makeTrivialSolution(matrix.getAtomicCellsList(), possibleValueList);
+			matrix.checkMatrixForTrivialSolution();
 		}
 	}
-
-	private void makeTrivialSolution(List<AtomicCell> atomicCellList, List<Integer> possibleValueList) {
-		List<AtomicCell> emptyCellList = atomicCellList.stream().filter( c -> c.getValue() == 0).collect(Collectors.toList());
-		AtomicCell emptyCell = emptyCellList.get(0);
-		if (emptyCellList.size() == 1) {
-			emptyCell.setValue(possibleValueList.get(0));
-		}
-	}
-
 }

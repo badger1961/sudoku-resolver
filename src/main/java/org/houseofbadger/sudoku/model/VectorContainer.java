@@ -1,46 +1,41 @@
 package org.houseofbadger.sudoku.model;
 
+import org.houseofbadger.sudoku.solutions.SolutionsSeeker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class VectorContainer {
+    private static final Logger logger = LoggerFactory.getLogger(VectorContainer.class);
     private final int idx;
     private final int vectorSize;
     private final ContainerCellUtils containerCellUtils;
     private final List<AtomicCell> atomicCellsList;
 
     enum VectorEnum {
-    	ROW_MODE,
-    	COLUMN_MODE
+        ROW_MODE,
+        COLUMN_MODE
     }
-    
+
     public VectorContainer(int idx, List<List<AtomicCell>> vectorData, VectorEnum mode) {
         this.idx = idx;
         this.vectorSize = vectorData.size();
         if (mode == VectorEnum.ROW_MODE) {
-        	this.atomicCellsList = this.rowVectorContasinerFactory(vectorData);
+            this.atomicCellsList = this.rowVectorContainerFactory(vectorData);
         } else if (mode == VectorEnum.COLUMN_MODE) {
-        	this.atomicCellsList = this.columnVectorContainerFactory(vectorData);
+            this.atomicCellsList = this.columnVectorContainerFactory(vectorData);
         } else {
-        	throw new ContainerException("Invalid mode of vector creation");
+            throw new ContainerException("Invalid mode of vector creation");
         }
-        
-        this.containerCellUtils = new ContainerCellUtils(this.atomicCellsList );
+
+        this.containerCellUtils = new ContainerCellUtils(this.atomicCellsList);
     }
-    
-    private List<AtomicCell> rowVectorContasinerFactory(List<List<AtomicCell>> vectorData) {
-    	List<AtomicCell> buffer = vectorData.get(this.idx);
-    	return buffer;
-    }
-    
-    private List<AtomicCell> columnVectorContainerFactory(List<List<AtomicCell>> vectorData) {
-    	List<AtomicCell> buffer = new ArrayList<>();
-    	for (int row = 0; row < this.vectorSize; row++) {
-    		AtomicCell cell = vectorData.get(row).get(this.idx);
-    		buffer.add(cell);
-    	}
-    	
-    	return buffer;
+
+    public void checkVectorForTrivialSolution() {
+        List<Integer> possibleValueList = this.getAvailableNumber();
+        this.containerCellUtils.makeTrivialSolution(possibleValueList);
     }
 
     public void cleanPossibleValue() {
@@ -48,20 +43,20 @@ public class VectorContainer {
     }
 
     public int getIdx() {
-		return idx;
-	}
+        return idx;
+    }
 
-	public int getVectorSize() {
-		return vectorSize;
-	}
+    public int getVectorSize() {
+        return vectorSize;
+    }
 
-	public List<AtomicCell> getAtomicCellsList() {
+    public List<AtomicCell> getAtomicCellsList() {
         return this.atomicCellsList;
     }
 
-	public AtomicCell getAtomicCell(int x) {
+    public AtomicCell getAtomicCell(int x) {
         AtomicCell cell = this.atomicCellsList.get(x);
-        return  cell;
+        return cell;
     }
 
     public int getValueAtomicCell(int x) {
@@ -78,13 +73,13 @@ public class VectorContainer {
         AtomicCell cell = getAtomicCell(x);
         cell.resetPossibleValue(value);
     }
-    
+
     public List<Integer> getUsedNumber() {
-    	return this.containerCellUtils.getUsedNumber();
+        return this.containerCellUtils.getUsedNumber();
     }
-    
+
     public List<Integer> getAvailableNumber() {
-    	return this.containerCellUtils.getAvailableNumber();
+        return this.containerCellUtils.getAvailableNumber();
     }
 
     @Override
@@ -95,5 +90,20 @@ public class VectorContainer {
                 ", containerCellUtils=" + containerCellUtils +
                 ", atomicCellsList=" + atomicCellsList +
                 '}';
+    }
+
+    private List<AtomicCell> rowVectorContainerFactory(List<List<AtomicCell>> vectorData) {
+        List<AtomicCell> buffer = vectorData.get(this.idx);
+        return buffer;
+    }
+
+    private List<AtomicCell> columnVectorContainerFactory(List<List<AtomicCell>> vectorData) {
+        List<AtomicCell> buffer = new ArrayList<>();
+        for (int row = 0; row < this.vectorSize; row++) {
+            AtomicCell cell = vectorData.get(row).get(this.idx);
+            buffer.add(cell);
+        }
+
+        return buffer;
     }
 }
