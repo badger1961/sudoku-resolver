@@ -2,7 +2,6 @@ package org.houseofbadger.sudoku.solutions;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.houseofbadger.sudoku.dataloader.OutputDataWriter;
 import org.houseofbadger.sudoku.model.*;
@@ -17,9 +16,9 @@ public class SolutionsSeeker {
 		List<VectorContainer> vectorColumnList = mainGameContainer.getVectorContainerColList();
 		List<VectorContainer> vectorRowList = mainGameContainer.getVectorContainerRowList();
 		Map<MatrixKey, MatrixContainer> matrixMap = mainGameContainer.getMatrixContainerMap();
-		this.checkVectorForTrivialSolution(vectorColumnList);
-		this.checkVectorForTrivialSolution(vectorRowList);
-		this.checkMatrixForTrivialSolution(matrixMap);
+		this.findTrivialSolutionForVector(vectorColumnList);
+		this.findTrivialSolutionForVector(vectorRowList);
+		this.findTrivialSolutionForMatrix(matrixMap);
 		logger.debug("end finding trivial solutions");
 	}
 
@@ -42,19 +41,35 @@ public class SolutionsSeeker {
 	}
 
 	private void trivialPossibleValueInVectorSeeker(List<VectorContainer> vectorContainerList) {
+		for(VectorContainer vector : vectorContainerList ) {
 
+		}
 	}
-	private void checkVectorForTrivialSolution(final List<VectorContainer> vectorList) {
+	private void findTrivialSolutionForVector(final List<VectorContainer> vectorList) {
 		for(VectorContainer vector : vectorList) {
-			vector.checkVectorForTrivialSolution();
+			List<AtomicCell> emptyCellsList = vector.getEmptyAtomocCellList();
+			this.trivialFillEmptyCell(emptyCellsList,vector.getIdx(), vector.getAvailableNumber());
 		}
 	}
 
-	private void checkMatrixForTrivialSolution(Map<MatrixKey, MatrixContainer> matrixMap) {
+	private void findTrivialSolutionForMatrix(Map<MatrixKey, MatrixContainer> matrixMap) {
 		for (MatrixKey key : matrixMap.keySet()) {
 			MatrixContainer matrix = matrixMap.get(key);
-			List<Integer> possibleValueList = matrix.getAvailableNumber();
-			matrix.checkMatrixForTrivialSolution();
+			List<AtomicCell> emptyCellsList = matrix.getEmptyAtomocCellList();
+			this.trivialFillEmptyCell(emptyCellsList, matrix.getIdx(), matrix.getAvailableNumber());
+
+		}
+	}
+
+	private void trivialFillEmptyCell(List<AtomicCell> emptyCellsList, String idx, List<Integer> availableNumber) {
+		int size = emptyCellsList.size();
+		if (size > 1) {
+			logger.info("No trivial solutions for verctor with ID : " + idx);
+		} else if (size == 0) {
+			logger.info("vector with ID is filled: " +  idx);
+		} else {
+			AtomicCell emptyCell = emptyCellsList.get(0);
+			emptyCell.setValue(availableNumber.get(0));
 		}
 	}
 }

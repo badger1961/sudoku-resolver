@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VectorContainer {
     private static final Logger logger = LoggerFactory.getLogger(VectorContainer.class);
@@ -13,6 +14,7 @@ public class VectorContainer {
     private final int vectorSize;
     private final ContainerCellUtils containerCellUtils;
     private final List<AtomicCell> atomicCellsList;
+    private final VectorEnum vectorEnum;
 
     enum VectorEnum {
         ROW_MODE,
@@ -30,20 +32,28 @@ public class VectorContainer {
             throw new ContainerException("Invalid mode of vector creation");
         }
 
+        this.vectorEnum = mode;
         this.containerCellUtils = new ContainerCellUtils(this.atomicCellsList);
     }
 
-    public void checkVectorForTrivialSolution() {
-        List<Integer> possibleValueList = this.getAvailableNumber();
-        this.containerCellUtils.makeTrivialSolution(possibleValueList);
+    public List<AtomicCell> getEmptyAtomocCellList() {
+        List<AtomicCell> emptyCellList = this.containerCellUtils.getEmptyAtomocCellList();
+        return emptyCellList;
     }
 
     public void cleanPossibleValue() {
         this.containerCellUtils.cleanPossibleValue();
     }
 
-    public int getIdx() {
-        return idx;
+    public String getIdx() {
+        if (this.vectorEnum == VectorEnum.ROW_MODE) {
+            return "Row : " + idx;
+        } else if (this.vectorEnum == VectorEnum.COLUMN_MODE) {
+            return "Column : " + idx;
+        } else {
+            logger.error("Hmm ... Strange mode should be row or column");
+            return "Unknown";
+        }
     }
 
     public int getVectorSize() {
@@ -81,6 +91,7 @@ public class VectorContainer {
     public List<Integer> getAvailableNumber() {
         return this.containerCellUtils.getAvailableNumber();
     }
+
 
     @Override
     public String toString() {

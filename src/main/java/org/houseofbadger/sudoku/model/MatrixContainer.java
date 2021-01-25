@@ -30,9 +30,9 @@ public class MatrixContainer {
 
 	}
 
-	public void checkMatrixForTrivialSolution() {
-		List<Integer> possibleValueList = this.getAvailableNumber();
-		this.containerCellUtils.makeTrivialSolution(possibleValueList);
+	public List<AtomicCell> getEmptyAtomocCellList() {
+		List<AtomicCell> emptyCellList = this.containerCellUtils.getEmptyAtomocCellList();
+		return emptyCellList;
 	}
 
 	public List<AtomicCell> getAtomicCellsList() {
@@ -85,12 +85,8 @@ public class MatrixContainer {
 		return this.containerRowSize;
 	}
 
-	public int getLeftCornerLine() {
-		return this.rowNumber;
+	public String getIdx() {
+		String idx = this.rowNumber + " : " +  this.columnNumber;
+		return idx;
 	}
-
-	public int getLeftCornerColumn() {
-		return this.columnNumber;
-	}
-
 }
