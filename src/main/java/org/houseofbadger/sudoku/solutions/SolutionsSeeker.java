@@ -42,12 +42,23 @@ public class SolutionsSeeker {
 
 	private void trivialPossibleValueInVectorSeeker(List<VectorContainer> vectorContainerList) {
 		for(VectorContainer vector : vectorContainerList ) {
-
+			var trivialCellsList = vector.getCellWithTrivialPossibleValues();
+			for (AtomicCell cell : trivialCellsList) {
+				int possibleValue = cell.getPossibleValue().get(0);
+				cell.setValue(possibleValue);
+			}
 		}
 	}
+
+	private void trivialPossibleValueInMatrixSeeker(Map<MatrixKey, MatrixContainer> matrixMap) {
+		for ( MatrixKey key : matrixMap.keySet()) {
+			MatrixContainer matrixContainer = matrixMap.get(key);
+		}
+	}
+
 	private void findTrivialSolutionForVector(final List<VectorContainer> vectorList) {
 		for(VectorContainer vector : vectorList) {
-			List<AtomicCell> emptyCellsList = vector.getEmptyAtomocCellList();
+			List<AtomicCell> emptyCellsList = vector.getEmptyAtomicCellList();
 			this.trivialFillEmptyCell(emptyCellsList,vector.getIdx(), vector.getAvailableNumber());
 		}
 	}
@@ -55,9 +66,8 @@ public class SolutionsSeeker {
 	private void findTrivialSolutionForMatrix(Map<MatrixKey, MatrixContainer> matrixMap) {
 		for (MatrixKey key : matrixMap.keySet()) {
 			MatrixContainer matrix = matrixMap.get(key);
-			List<AtomicCell> emptyCellsList = matrix.getEmptyAtomocCellList();
+			List<AtomicCell> emptyCellsList = matrix.getEmptyAtomicCellList();
 			this.trivialFillEmptyCell(emptyCellsList, matrix.getIdx(), matrix.getAvailableNumber());
-
 		}
 	}
 

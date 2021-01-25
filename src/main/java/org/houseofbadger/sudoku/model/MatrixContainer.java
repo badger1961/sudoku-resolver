@@ -2,6 +2,7 @@ package org.houseofbadger.sudoku.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MatrixContainer {
 	private final int containerRowSize;
@@ -30,9 +31,14 @@ public class MatrixContainer {
 
 	}
 
-	public List<AtomicCell> getEmptyAtomocCellList() {
-		List<AtomicCell> emptyCellList = this.containerCellUtils.getEmptyAtomocCellList();
+	public List<AtomicCell> getEmptyAtomicCellList() {
+		List<AtomicCell> emptyCellList = this.containerCellUtils.getEmptyAtomicCellList();
 		return emptyCellList;
+	}
+
+	public List<AtomicCell> getCellWithTrivialPossibleValues() {
+		var trivialAtomicList = this.containerCellUtils.getCellWithTrivialPossibleValues();
+		return trivialAtomicList;
 	}
 
 	public List<AtomicCell> getAtomicCellsList() {

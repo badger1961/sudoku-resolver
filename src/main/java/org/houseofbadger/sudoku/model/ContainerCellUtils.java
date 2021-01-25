@@ -41,8 +41,13 @@ public class ContainerCellUtils {
         }
     }
 
-    public List<AtomicCell> getEmptyAtomocCellList() {
+    public List<AtomicCell> getEmptyAtomicCellList() {
         List<AtomicCell> emptyCellList = this.atomicCellsList.stream().filter( c -> c.getValue() == 0).collect(Collectors.toList());
         return emptyCellList;
+    }
+
+    public List<AtomicCell> getCellWithTrivialPossibleValues() {
+        var trivialAtomicList = this.atomicCellsList.stream().filter(c->c.getPossibleValue().size() == 1).collect(Collectors.toList());
+        return trivialAtomicList;
     }
 }
