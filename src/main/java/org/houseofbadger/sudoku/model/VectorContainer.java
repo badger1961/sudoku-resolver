@@ -36,9 +36,14 @@ public class VectorContainer {
         this.containerCellUtils = new ContainerCellUtils(this.atomicCellsList);
     }
 
-    public List<AtomicCell> getEmptyAtomocCellList() {
-        List<AtomicCell> emptyCellList = this.containerCellUtils.getEmptyAtomocCellList();
+    public List<AtomicCell> getEmptyAtomicCellList() {
+        List<AtomicCell> emptyCellList = this.containerCellUtils.getEmptyAtomicCellList();
         return emptyCellList;
+    }
+
+    public List<AtomicCell> getCellWithTrivialPossibleValues() {
+        var trivialAtomicList = this.containerCellUtils.getCellWithTrivialPossibleValues();
+        return trivialAtomicList;
     }
 
     public void cleanPossibleValue() {

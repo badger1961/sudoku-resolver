@@ -38,6 +38,7 @@ public class SolutionsSeeker {
 		while (!mainGameContainer.mainGameContainerCompleted()) {
 			logger.info("Iteration : " + iteration );
 			this.trivialSolutionSeeker(mainGameContainer);
+			this.trivialPossibleValueSeeker(mainGameContainer);
 			mainGameContainer.cleanPossibleValue();
 			OutputDataWriter outputDataWriter = new OutputDataWriter();
 			outputDataWriter.saveMainGameContainer(mainGameContainer, "step-" + iteration + ".txt");
@@ -60,9 +61,16 @@ public class SolutionsSeeker {
 	}
 
 
+
+	private void trivialPossibleValueInMatrixSeeker(Map<MatrixKey, MatrixContainer> matrixMap) {
+		for ( MatrixKey key : matrixMap.keySet()) {
+			MatrixContainer matrixContainer = matrixMap.get(key);
+		}
+	}
+
 	private void findTrivialSolutionForVector(final List<VectorContainer> vectorList) {
 		for(VectorContainer vector : vectorList) {
-			List<AtomicCell> emptyCellsList = vector.getEmptyAtomocCellList();
+			List<AtomicCell> emptyCellsList = vector.getEmptyAtomicCellList();
 			this.trivialFillEmptyCell(emptyCellsList,vector.getIdx(), vector.getAvailableNumber());
 		}
 	}
@@ -70,9 +78,8 @@ public class SolutionsSeeker {
 	private void findTrivialSolutionForMatrix(Map<MatrixKey, MatrixContainer> matrixMap) {
 		for (MatrixKey key : matrixMap.keySet()) {
 			MatrixContainer matrix = matrixMap.get(key);
-			List<AtomicCell> emptyCellsList = matrix.getEmptyAtomocCellList();
+			List<AtomicCell> emptyCellsList = matrix.getEmptyAtomicCellList();
 			this.trivialFillEmptyCell(emptyCellsList, matrix.getIdx(), matrix.getAvailableNumber());
-
 		}
 	}
 
