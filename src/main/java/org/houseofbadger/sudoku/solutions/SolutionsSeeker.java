@@ -19,11 +19,17 @@ public class SolutionsSeeker {
 		this.findTrivialSolutionForVector(vectorColumnList);
 		this.findTrivialSolutionForVector(vectorRowList);
 		this.findTrivialSolutionForMatrix(matrixMap);
+		this.trivialPossibleValueSeeker(mainGameContainer);
 		logger.debug("end finding trivial solutions");
 	}
 
 	public void trivialPossibleValueSeeker(final MainGameContainer mainGameContainer) {
-
+		List<VectorContainer> rowList = mainGameContainer.getVectorContainerRowList();
+		List<VectorContainer> colList = mainGameContainer.getVectorContainerRowList();
+		Map<MatrixKey, MatrixContainer> matrixContainerMap = mainGameContainer.getMatrixContainerMap();
+		this.trivialPossibleValueInVectorSeeker(rowList);
+		this.trivialPossibleValueInVectorSeeker(colList);
+		this.trivialPossibleValueInMatrixcSeeker(matrixContainerMap);
 	}
 
 	public void seekGameSolution(final MainGameContainer mainGameContainer) {
@@ -42,9 +48,18 @@ public class SolutionsSeeker {
 
 	private void trivialPossibleValueInVectorSeeker(List<VectorContainer> vectorContainerList) {
 		for(VectorContainer vector : vectorContainerList ) {
-
+			this.trivialFillCellByPossibleValue(vector.getAtomicCellsList());
 		}
 	}
+
+	private void trivialPossibleValueInMatrixcSeeker(Map<MatrixKey, MatrixContainer> matrixContainerMap) {
+		for(MatrixKey key : matrixContainerMap.keySet()) {
+			MatrixContainer matrixContainer = matrixContainerMap.get(key);
+			this.trivialFillCellByPossibleValue(matrixContainer.getAtomicCellsList());
+		}
+	}
+
+
 	private void findTrivialSolutionForVector(final List<VectorContainer> vectorList) {
 		for(VectorContainer vector : vectorList) {
 			List<AtomicCell> emptyCellsList = vector.getEmptyAtomocCellList();
@@ -68,8 +83,25 @@ public class SolutionsSeeker {
 		} else if (size == 0) {
 			logger.info("vector with ID is filled: " +  idx);
 		} else {
+			logger.info("We found trivial solution for ID : " + idx );
 			AtomicCell emptyCell = emptyCellsList.get(0);
 			emptyCell.setValue(availableNumber.get(0));
+		}
+	}
+
+	private void trivialFillCellByPossibleValue(List<AtomicCell> atomicCellsList) {
+		for(AtomicCell atomicCell : atomicCellsList) {
+			List<Integer> actualPossibleValues = atomicCell.getPossibleValue();
+			int possibleValuesListSize = actualPossibleValues.size();
+			if (possibleValuesListSize == 0 ) {
+				logger.info("This is final cell " + atomicCell.toString());
+				atomicCell.setValue(actualPossibleValues.get(0));
+			} else if (possibleValuesListSize == 1 ){
+				logger.info("We found cell for trivial solution : cell " + atomicCell.toString());
+				atomicCell.setValue(actualPossibleValues.get(0));
+			} else {
+				logger.info("This cell is not ready for trivial solution cell : " + atomicCell.toString());
+			}
 		}
 	}
 }
