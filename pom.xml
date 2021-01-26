@@ -6,14 +6,20 @@
 
   <groupId>org.houseofbadger.sudoku</groupId>
   <artifactId>sudoku-resolver</artifactId>
-  <version>1.0.0</version>
+  <version>1.0</version>
 
   <name>sudoku-resolver</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <buildNumber>1</buildNumber>
+<!--    <buildNumber0>dev</buildNumber0>-->
   </properties>
+  <scm>
+    <connection>scm:git:https://github.com/badger1961/sudoku-resolver.git</connection>
+    <developerConnection>scm:git:https://github.com/badger1961/sudoku-resolver.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://github.com/badger1961/sudoku-resolver.git</url>
+  </scm>
 
   <dependencies>
     <dependency>
@@ -44,7 +50,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>
+    <finalName>${project.artifactId}-${project.version}.${build.date}</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -60,12 +66,11 @@
             </execution>
           </executions>
           <configuration>
-            <format>{0,number}.{1,number}.{2,number}</format>
-            <items>
-              <item>buildNumber0</item>
-              <item>buildNumber1</item>
-              <item>buildNumber2</item>
-            </items>
+            <buildNumberPropertyName>build.date</buildNumberPropertyName>
+              <format>{0,date,yyyyMMddHHmmss}</format>
+              <items>
+                <item>timestamp</item>
+              </items>
             <doCheck>true</doCheck>
             <doUpdate>true</doUpdate>
           </configuration>
@@ -124,7 +129,7 @@
                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               </manifest>
               <manifestEntries>
-                <Implementation-Build>${buildNumber}</Implementation-Build>
+                <Implementation-Build>${buildNumber0}</Implementation-Build>
               </manifestEntries>
             </archive>
           </configuration>
