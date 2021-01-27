@@ -2,6 +2,7 @@ package org.houseofbadger.sudoku.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MatrixContainer {
 	private final int containerRowSize;
@@ -28,6 +29,16 @@ public class MatrixContainer {
 			}
 		}
 
+	}
+
+	public List<AtomicCell> getEmptyAtomicCellList() {
+		List<AtomicCell> emptyCellList = this.containerCellUtils.getEmptyAtomicCellList();
+		return emptyCellList;
+	}
+
+	public List<AtomicCell> getCellWithTrivialPossibleValues() {
+		var trivialAtomicList = this.containerCellUtils.getCellWithTrivialPossibleValues();
+		return trivialAtomicList;
 	}
 
 	public List<AtomicCell> getAtomicCellsList() {
@@ -80,12 +91,8 @@ public class MatrixContainer {
 		return this.containerRowSize;
 	}
 
-	public int getLeftCornerLine() {
-		return this.rowNumber;
+	public String getIdx() {
+		String idx = this.rowNumber + " : " +  this.columnNumber;
+		return idx;
 	}
-
-	public int getLeftCornerColumn() {
-		return this.columnNumber;
-	}
-
 }

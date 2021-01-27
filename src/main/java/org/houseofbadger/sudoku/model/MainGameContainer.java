@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class MainGameContainer {
 	private static final Logger logger= LoggerFactory.getLogger(MainGameContainer.class);
@@ -51,6 +52,25 @@ public class MainGameContainer {
 		return this.matrixContainerMap.get(new MatrixKey(leftUpperLine, leftUpperRow));
 	}
 
+	public void cleanPossibleValue() {
+		this.vectorContainerColList.stream().forEach(v -> v.cleanPossibleValue());
+		this.vectorContainerRowList.stream().forEach(v -> v.cleanPossibleValue());
+		matrixContainerMap.keySet().stream().forEach(key -> this.matrixContainerMap.get(key).cleanPossibleValue());
+	}
+
+	public boolean mainGameContainerCompleted() {
+		List<VectorContainer> completedVector =  this.vectorContainerRowList.stream().filter(v -> v.getAvailableNumber().size() == 0).collect(Collectors.toList());
+		int completedLinesNumber = completedVector.size();
+		logger.debug("Completed lines : " + completedLinesNumber);
+		if (completedLinesNumber == ContainerConstants.CONTAINER_LINE_MAX) {
+			logger.debug("Game completed");
+			return true;
+		} else {
+			logger.debug("Continue game");
+			return false;
+		}
+	}
+
 	private List<VectorContainer> initVectorContainerList(List<List<AtomicCell>> dataSet, int vectorSize, VectorEnum mode) {
 		List<VectorContainer> vectorContainerColList = new ArrayList<VectorContainer>(vectorSize);
 		for (int i = 0; i < ContainerConstants.CONTAINER_LINE_SIZE; i++) {
@@ -72,5 +92,7 @@ public class MainGameContainer {
 		
 		return matrixContainerMap;
 	}
+
+
 
 }
