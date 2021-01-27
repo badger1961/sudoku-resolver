@@ -9,6 +9,14 @@ public final class MatrixKey {
 		this.leftColumn = column;
 	}
 
+	public int getLeftLine() {
+		return leftLine;
+	}
+
+	public int getLeftColumn() {
+		return leftColumn;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

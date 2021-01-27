@@ -27,7 +27,7 @@ public class Application {
         logger.debug("End Loading input data for sudoku resolver application");
         logger.debug("Start Resolving");
         SolutionsSeeker solutionsSeeker = new SolutionsSeeker();
-        solutionsSeeker.trivialSolutionSeeker(mainGameContainer);
+        solutionsSeeker.seekGameSolution(mainGameContainer);
         logger.debug("End Resolving");
         logger.debug("saving result");
         OutputDataWriter outputDataWriter = new OutputDataWriter();
