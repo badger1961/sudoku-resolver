@@ -130,6 +130,8 @@
                             </manifest>
                             <manifestEntries>
                                 <Implementation-Build>${build.date}</Implementation-Build>
+                                <SCM-Branch>${scmBranch}</SCM-Branch>
+                                <SCM-Hash>${scmHash}</SCM-Hash>
                             </manifestEntries>
                         </archive>
                     </configuration>
